@@ -8,6 +8,7 @@ import com.example.dto.ProductDTO;
 import com.example.dto.StudentDto;
 import com.example.entities.Student;
 import com.example.mappers.StudentMapper;
+import com.example.services.MyServiceImpl;
 import com.example.services.ProductServiceImpl;
 
 
@@ -17,14 +18,14 @@ public class SpringMapperController {
 	
     private final StudentMapper studentMapper;
     private final ProductServiceImpl productServiceImpl;
+    private final MyServiceImpl myServiceImpl;
 
-    public SpringMapperController(StudentMapper studentMapper, ProductServiceImpl productServiceImpl) {
+    public SpringMapperController(StudentMapper studentMapper, ProductServiceImpl productServiceImpl, MyServiceImpl myServiceImpl) {
         this.studentMapper = studentMapper;
         this.productServiceImpl = productServiceImpl;
+        this.myServiceImpl = myServiceImpl;
     }
     
-    
-
     @GetMapping("/student")
     public ResponseEntity<StudentDto> getStudentDto() {
         Student student = new Student();
@@ -54,4 +55,11 @@ public class SpringMapperController {
         return ResponseEntity.ok(productDto);
     }
     
+    @GetMapping("/modelMapperProduct")
+    public ResponseEntity<StudentDto> getModelMapperStudentDTO() {
+    	
+    	StudentDto dto = myServiceImpl.getProductById();
+
+        return ResponseEntity.ok(dto);
+    }
 }
